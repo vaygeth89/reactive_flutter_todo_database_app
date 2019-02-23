@@ -26,8 +26,8 @@ class HomePage extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 border: Border(
-                  top: BorderSide(color: Colors.grey, width: 0.3),
-                )),
+              top: BorderSide(color: Colors.grey, width: 0.3),
+            )),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
@@ -44,10 +44,10 @@ class HomePage extends StatelessWidget {
                   child: Text(
                     "Todo",
                     style: TextStyle(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'RobotoMono',
-                        fontStyle: FontStyle.italic,
-                        fontSize: 18),
+                        fontStyle: FontStyle.normal,
+                        fontSize: 19),
                   ),
                 ),
                 Wrap(children: <Widget>[
@@ -71,11 +71,10 @@ class HomePage extends StatelessWidget {
         ),
         body: SafeArea(
             child: Container(
-              color: Colors.white,
-              padding: const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
-              child: Container(
-                  child: getTodosWidget())
-            )),
+                color: Colors.white,
+                padding:
+                    const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
+                child: Container(child: getTodosWidget()))),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: EdgeInsets.only(bottom: 25),
@@ -158,8 +157,8 @@ class HomePage extends StatelessWidget {
                                 onPressed: () {
                                   final newTodo = Todo(
                                       description:
-                                      _todoDescriptionFormController
-                                          .value.text);
+                                          _todoDescriptionFormController
+                                              .value.text);
                                   if (newTodo.description.isNotEmpty) {
                                     todoBloc.addTodo(newTodo);
                                     Navigator.pop(context);
@@ -241,8 +240,8 @@ class HomePage extends StatelessWidget {
                                 onPressed: () {
                                   todoBloc.getTodos(
                                       query:
-                                      _todoSearchDescriptionFormController
-                                          .value.text);
+                                          _todoSearchDescriptionFormController
+                                              .value.text);
                                   Navigator.pop(context);
                                 },
                               ),
@@ -262,18 +261,18 @@ class HomePage extends StatelessWidget {
   Widget noInternetWidget() {
     return Container(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.network_check), iconSize: 45, onPressed: null),
-              Text(
-                "No Internet",
-                style: TextStyle(fontSize: 19),
-              ),
-            ],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+              icon: Icon(Icons.network_check), iconSize: 45, onPressed: null),
+          Text(
+            "No Internet",
+            style: TextStyle(fontSize: 19),
           ),
-        ));
+        ],
+      ),
+    ));
   }
 
   Widget getTodosWidget() {
@@ -289,75 +288,75 @@ class HomePage extends StatelessWidget {
     if (snapshot.hasData) {
       return snapshot.data.length != 0
           ? ListView.builder(
-        itemCount: snapshot.data.length,
-        itemBuilder: (context, itemPosition) {
-          Todo todo = snapshot.data[itemPosition];
-          final Widget dismissibleCard = new Dismissible(
-            background: Container(
-              child: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Deleting",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-              color: Colors.redAccent,
-            ),
-            onDismissed: (direction) {
-              todoBloc.deleteTodoById(todo.id);
-            },
-            direction: _dismissDirection,
-            key: new ObjectKey(todo),
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.grey[200], width: 0.5),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                color: Colors.white,
-                child: ListTile(
-                  leading: InkWell(
-                    onTap: () {
-                      todo.isDone = !todo.isDone;
-                      todoBloc.updateTodo(todo);
-                    },
-                    child: Container(
-                      //decoration: BoxDecoration(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: todo.isDone
-                            ? Icon(
-                          Icons.done,
-                          size: 26.0,
-                        )
-                            : Icon(
-                          Icons.check_box_outline_blank,
-                          size: 26.0,
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, itemPosition) {
+                Todo todo = snapshot.data[itemPosition];
+                final Widget dismissibleCard = new Dismissible(
+                  background: Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Deleting",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
+                    color: Colors.redAccent,
                   ),
-                  title: Text(
-                    todo.description,
-                    style: TextStyle(
-                        fontSize: 16.5,
-                        fontFamily: 'RobotoMono',
-                        fontWeight: FontWeight.w500,
-                        decoration: todo.isDone
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none),
-                  ),
-                )),
-          );
-          return dismissibleCard;
-        },
-      )
+                  onDismissed: (direction) {
+                    todoBloc.deleteTodoById(todo.id);
+                  },
+                  direction: _dismissDirection,
+                  key: new ObjectKey(todo),
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.grey[200], width: 0.5),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: InkWell(
+                          onTap: () {
+                            todo.isDone = !todo.isDone;
+                            todoBloc.updateTodo(todo);
+                          },
+                          child: Container(
+                            //decoration: BoxDecoration(),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: todo.isDone
+                                  ? Icon(
+                                      Icons.done,
+                                      size: 26.0,
+                                    )
+                                  : Icon(
+                                      Icons.check_box_outline_blank,
+                                      size: 26.0,
+                                    ),
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          todo.description,
+                          style: TextStyle(
+                              fontSize: 16.5,
+                              fontFamily: 'RobotoMono',
+                              fontWeight: FontWeight.w500,
+                              decoration: todo.isDone
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none),
+                        ),
+                      )),
+                );
+                return dismissibleCard;
+              },
+            )
           : Container(
-          child: Center(
-            child: noTodoMessageWidget(),
-          ));
+              child: Center(
+              child: noTodoMessageWidget(),
+            ));
     } else {
       return Center(
         child: loadingData(),
@@ -372,7 +371,11 @@ class HomePage extends StatelessWidget {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[CircularProgressIndicator(), Text("Loading...")],
+          children: <Widget>[
+            CircularProgressIndicator(),
+            Text("Loading...",
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500))
+          ],
         ),
       ),
     );
@@ -382,7 +385,7 @@ class HomePage extends StatelessWidget {
     return Container(
       child: Text(
         "Start adding Todo...",
-        style: TextStyle(fontSize: 19),
+        style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
       ),
     );
   }
