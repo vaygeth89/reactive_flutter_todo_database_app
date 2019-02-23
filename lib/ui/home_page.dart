@@ -258,6 +258,7 @@ class HomePage extends StatelessWidget {
                                       query:
                                           _todoSearchDescriptionFormController
                                               .value.text);
+                                  //dismisses the bottomsheet
                                   Navigator.pop(context);
                                 },
                               ),
@@ -275,7 +276,10 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getTodosWidget() {
-    //Magic here
+    /*The StreamBuilder widget,
+    basically this widget will take stream of data (todos)
+    and construct the UI (with state) based on the stream
+    */
     return StreamBuilder(
       stream: todoBloc.todos,
       builder: (BuildContext context, AsyncSnapshot<List<Todo>> snapshot) {
