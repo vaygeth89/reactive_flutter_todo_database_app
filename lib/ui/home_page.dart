@@ -6,6 +6,8 @@ import 'package:reactive_todo_app/model/todo.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
+  //We load our Todo BLoC that is used to get
+  //the stream of Todo for StreamBuilder
   final TodoBloc todoBloc = TodoBloc();
   final String title;
 
@@ -21,6 +23,14 @@ class HomePage extends StatelessWidget {
         statusBarBrightness: Brightness.dark));
     return Scaffold(
         resizeToAvoidBottomPadding: false,
+        body: SafeArea(
+            child: Container(
+                color: Colors.white,
+                padding:
+                    const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
+                child: Container(
+                    //This is where the magic starts
+                    child: getTodosWidget()))),
         bottomNavigationBar: BottomAppBar(
           color: Colors.white,
           child: Container(
@@ -38,6 +48,7 @@ class HomePage extends StatelessWidget {
                       size: 28,
                     ),
                     onPressed: () {
+                      //just re-pull UI for testing purposes
                       todoBloc.getTodos();
                     }),
                 Expanded(
@@ -69,12 +80,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        body: SafeArea(
-            child: Container(
-                color: Colors.white,
-                padding:
-                    const EdgeInsets.only(left: 2.0, right: 2.0, bottom: 2.0),
-                child: Container(child: getTodosWidget()))),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: EdgeInsets.only(bottom: 25),
@@ -160,7 +165,14 @@ class HomePage extends StatelessWidget {
                                           _todoDescriptionFormController
                                               .value.text);
                                   if (newTodo.description.isNotEmpty) {
+                                    /*Create new Todo object and make sure
+                                    the Todo description is not empty,
+                                    because what's the point of saving empty
+                                    Todo
+                                    */
                                     todoBloc.addTodo(newTodo);
+
+                                    //dismisses the bottomsheet
                                     Navigator.pop(context);
                                   }
                                 },
@@ -238,6 +250,10 @@ class HomePage extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
+                                  /*This will get all todos
+                                  that contains similar string
+                                  in the textform
+                                  */
                                   todoBloc.getTodos(
                                       query:
                                           _todoSearchDescriptionFormController
@@ -259,6 +275,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getTodosWidget() {
+    //Magic here
     return StreamBuilder(
       stream: todoBloc.todos,
       builder: (BuildContext context, AsyncSnapshot<List<Todo>> snapshot) {
@@ -268,7 +285,15 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getTodoCardWidget(AsyncSnapshot<List<Todo>> snapshot) {
+    /*Since most of our operations are asynchronous
+    at initial state of the operation there will be no stream
+    so we need to handle it if this was the case
+    by showing users a processing/loading indicator*/
     if (snapshot.hasData) {
+      /*Also handles whenever there's stream
+      but returned returned 0 records of Todo from DB.
+      If that the case show user that you have empty Todos
+      */
       return snapshot.data.length != 0
           ? ListView.builder(
               itemCount: snapshot.data.length,
@@ -289,6 +314,10 @@ class HomePage extends StatelessWidget {
                     color: Colors.redAccent,
                   ),
                   onDismissed: (direction) {
+                    /*The magic
+                    delete Todo item by ID whenever
+                    the card is dismissed
+                    */
                     todoBloc.deleteTodoById(todo.id);
                   },
                   direction: _dismissDirection,
@@ -302,7 +331,14 @@ class HomePage extends StatelessWidget {
                       child: ListTile(
                         leading: InkWell(
                           onTap: () {
+                            //Reverse the value
                             todo.isDone = !todo.isDone;
+
+                            /*
+                            Another magic.
+                            This will update that is either
+                            completed or not
+                            */
                             todoBloc.updateTodo(todo);
                           },
                           child: Container(
@@ -340,10 +376,17 @@ class HomePage extends StatelessWidget {
             )
           : Container(
               child: Center(
+              //this is used whenever there 0 Todo
+              //in the data base
               child: noTodoMessageWidget(),
             ));
     } else {
       return Center(
+        /*since most of our I/O operations are done
+        outside the main thread asynchronously
+        we may want to display a loading indicator
+        to let the use know the app is currently
+        processing*/
         child: loadingData(),
       );
     }
@@ -376,6 +419,9 @@ class HomePage extends StatelessWidget {
   }
 
   dispose() {
+    /*close the stream in order
+    to avoid memory leaks
+    */
     todoBloc.dispose();
   }
 }
