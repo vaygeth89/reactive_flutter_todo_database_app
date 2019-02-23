@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 IconButton(
                     icon: Icon(
-                      Icons.refresh,
+                      Icons.menu,
                       color: Colors.indigoAccent,
                       size: 28,
                     ),
@@ -55,6 +55,7 @@ class HomePage extends StatelessWidget {
                   child: Text(
                     "Todo",
                     style: TextStyle(
+                        color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'RobotoMono',
                         fontStyle: FontStyle.normal,
@@ -92,7 +93,7 @@ class HomePage extends StatelessWidget {
             child: Icon(
               Icons.add,
               size: 32,
-              color: Colors.tealAccent,
+              color: Colors.indigoAccent,
             ),
           ),
         ));
@@ -225,8 +226,8 @@ class HomePage extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.w400),
                               autofocus: true,
                               decoration: const InputDecoration(
-                                hintText: 'Description search...',
-                                labelText: 'Search from the Backend *',
+                                hintText: 'Search for todo...',
+                                labelText: 'Search *',
                                 labelStyle: TextStyle(
                                     color: Colors.indigoAccent,
                                     fontWeight: FontWeight.w500),

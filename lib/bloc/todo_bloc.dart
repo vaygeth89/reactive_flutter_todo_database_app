@@ -10,7 +10,7 @@ class TodoBloc {
 
   //Stream controller is the 'Admin' that manages
   //the state of our stream of data like adding
-  //new data, transform/change the state of the stream
+  //new data, change the state of the stream
   //and broadcast it to observers/subscribers
   final _todoController = StreamController<List<Todo>>.broadcast();
 
@@ -21,7 +21,7 @@ class TodoBloc {
   }
 
   getTodos({String query}) async {
-    //sink the dart way of adding data reactively to the stream
+    //sink is a way of adding data reactively to the stream
     //by registering a new event (stream transformation)
     _todoController.sink.add(await _todoRepository.getAllTodos(query: query));
   }
