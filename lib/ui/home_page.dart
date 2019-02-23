@@ -330,10 +330,12 @@ class HomePage extends StatelessWidget {
                                   ? Icon(
                                       Icons.done,
                                       size: 26.0,
+                                      color: Colors.indigoAccent,
                                     )
                                   : Icon(
                                       Icons.check_box_outline_blank,
                                       size: 26.0,
+                                      color: Colors.tealAccent,
                                     ),
                             ),
                           ),
