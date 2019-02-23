@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         canvasColor: Colors.transparent
       ),
+      //Our only page we have
       home: HomePage(title: 'My Todo List'),
     );
   }

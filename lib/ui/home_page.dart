@@ -258,23 +258,6 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  Widget noInternetWidget() {
-    return Container(
-        child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-              icon: Icon(Icons.network_check), iconSize: 45, onPressed: null),
-          Text(
-            "No Internet",
-            style: TextStyle(fontSize: 19),
-          ),
-        ],
-      ),
-    ));
-  }
-
   Widget getTodosWidget() {
     return StreamBuilder(
       stream: todoBloc.todos,
