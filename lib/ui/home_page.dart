@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                   child: Text(
                     "Todo",
                     style: TextStyle(
-                        color: Colors.tealAccent,
+                        //color: Colors.tealAccent,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'RobotoMono',
                         fontStyle: FontStyle.italic,
@@ -332,12 +332,12 @@ class HomePage extends StatelessWidget {
                             ? Icon(
                           Icons.done,
                           size: 26.0,
-                          color: Colors.tealAccent,
+                          //color: Colors.tealAccent,
                         )
                             : Icon(
                           Icons.check_box_outline_blank,
                           size: 26.0,
-                          color: Colors.tealAccent,
+                          //color: Colors.tealAccent,
                         ),
                       ),
                     ),
@@ -384,7 +384,7 @@ class HomePage extends StatelessWidget {
   Widget noTodoMessageWidget() {
     return Container(
       child: Text(
-        "You don't have Todo...",
+        "Start adding Todo...",
         style: TextStyle(fontSize: 19),
       ),
     );
