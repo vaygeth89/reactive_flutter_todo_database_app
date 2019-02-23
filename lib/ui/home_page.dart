@@ -338,12 +338,11 @@ class HomePage extends StatelessWidget {
                           onTap: () {
                             //Reverse the value
                             todo.isDone = !todo.isDone;
-
-                            /*
+                          /*
                             Another magic.
-                            This will update that is either
+                            This will update Todo isDone with either
                             completed or not
-                            */
+                          */
                             todoBloc.updateTodo(todo);
                           },
                           child: Container(
