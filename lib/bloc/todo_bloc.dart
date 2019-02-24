@@ -22,7 +22,7 @@ class TodoBloc {
 
   getTodos({String query}) async {
     //sink is a way of adding data reactively to the stream
-    //by registering a new event (stream transformation)
+    //by registering a new event
     _todoController.sink.add(await _todoRepository.getAllTodos(query: query));
   }
 
